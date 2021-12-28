@@ -1,4 +1,6 @@
-﻿using FluentValidationExample.Models;
+﻿using FluentValidation.Results;
+using FluentValidationExample.Models;
+using FluentValidationExample.Models.Validator;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -22,6 +24,21 @@ namespace FluentValidationExample.Controllers
         {
             return View();
         }
+        [HttpPost]
+        public IActionResult Index(LoginViewModel model)
+        {
+            LoginValidator validator = new LoginValidator();
+            ValidationResult result = validator.Validate(model);
+            if (!result.IsValid)
+            {
+                foreach (ValidationFailure failer in result.Errors)
+                {
+                    ModelState.AddModelError(failer.PropertyName, failer.ErrorMessage);
+                }
+            }
+            return View();
+        }
+
 
         public IActionResult Privacy()
         {

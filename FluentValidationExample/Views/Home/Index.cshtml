@@ -1,8 +1,15 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@model FluentValidationExample.Models.LoginViewModel;
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
+<div asp-validation-summary="ModelOnly"></div>
+
+<form asp-action="Index">
+    Account <input asp-for="Account" /> <span asp-validation-for="Account"></span>
+    <br />
+    Password <input asp-for="Password" /> <span asp-validation-for="Password"></span>
+    <br />
+    <input type="submit" value="submtit" />
+</form>
